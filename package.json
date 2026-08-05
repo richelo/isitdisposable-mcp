@@ -1,0 +1,46 @@
+{
+  "name": "isitdisposable-mcp",
+  "version": "0.1.0",
+  "description": "An MCP server that lets AI agents check whether an email address or domain is disposable.",
+  "mcpName": "io.github.richelo/isitdisposable-mcp",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "model context protocol",
+    "disposable email",
+    "temporary email",
+    "email validation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richelo/isitdisposable-mcp.git"
+  },
+  "homepage": "https://isitdisposable.com",
+  "bin": {
+    "isitdisposable-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  }
+}

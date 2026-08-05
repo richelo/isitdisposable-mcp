@@ -1,0 +1,30 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.richelo/isitdisposable-mcp",
+  "description": "An MCP server that lets AI agents check whether an email address or domain is disposable.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/richelo/isitdisposable-mcp",
+    "source": "github"
+  },
+  "website_url": "https://isitdisposable.com",
+  "packages": [
+    {
+      "registry_type": "npm",
+      "registry_base_url": "https://registry.npmjs.org",
+      "identifier": "isitdisposable-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environment_variables": [
+        {
+          "name": "ISITDISPOSABLE_API_KEY",
+          "description": "The secret API key for isitdisposable.com, used to authenticate every check. Get a free key at https://isitdisposable.com.",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    }
+  ]
+}
