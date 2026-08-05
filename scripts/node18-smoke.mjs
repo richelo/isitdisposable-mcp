@@ -48,26 +48,31 @@ function request(id, method, params) {
   });
 }
 
-const initialize = await request(1, "initialize", {
-  protocolVersion: "2025-06-18",
-  capabilities: {},
-  clientInfo: { name: "node18-smoke", version: "0.0.0" },
-});
-assert.strictEqual(initialize.result.serverInfo.name, "isitdisposable-mcp");
-send({ jsonrpc: "2.0", method: "notifications/initialized" });
+try {
+  const initialize = await request(1, "initialize", {
+    protocolVersion: "2025-06-18",
+    capabilities: {},
+    clientInfo: { name: "node18-smoke", version: "0.0.0" },
+  });
+  assert.strictEqual(initialize.result.serverInfo.name, "isitdisposable-mcp");
+  send({ jsonrpc: "2.0", method: "notifications/initialized" });
 
-const toolsList = await request(2, "tools/list", {});
-const names = toolsList.result.tools.map((tool) => tool.name).sort();
-assert.deepStrictEqual(names, ["check_batch", "check_domain", "check_email"]);
+  const toolsList = await request(2, "tools/list", {});
+  const names = toolsList.result.tools.map((tool) => tool.name).sort();
+  assert.deepStrictEqual(names, ["check_batch", "check_domain", "check_email"]);
 
-const call = await request(3, "tools/call", {
-  name: "check_email",
-  arguments: { email: "person@example.com" },
-});
-assert.strictEqual(call.result.isError, true);
-assert.ok(JSON.stringify(call.result.content).includes("ISITDISPOSABLE_API_KEY"));
+  const call = await request(3, "tools/call", {
+    name: "check_email",
+    arguments: { email: "person@example.com" },
+  });
+  assert.strictEqual(call.result.isError, true);
+  assert.ok(JSON.stringify(call.result.content).includes("ISITDISPOSABLE_API_KEY"));
 
-clearTimeout(timeout);
-child.kill();
-console.log("stdio smoke ok on " + process.version);
+  console.log("stdio smoke ok on " + process.version);
+} finally {
+  // Self-contained cleanup: a failed assertion above must still stop the
+  // timer and the spawned server rather than rely on stdin closing.
+  clearTimeout(timeout);
+  child.kill();
+}
 process.exit(0);
