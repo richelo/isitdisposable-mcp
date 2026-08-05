@@ -25,7 +25,7 @@ function readToolDeps(): ToolDeps {
 
 const server = new McpServer({
   name: "isitdisposable-mcp",
-  version: "0.1.0",
+  version: "0.1.1",
 });
 
 server.registerTool(

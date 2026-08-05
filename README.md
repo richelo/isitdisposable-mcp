@@ -47,16 +47,3 @@ Every tool returns the same verdict shape. `disposable` is the core true or fals
 This server always fails open. If a network problem, a timeout, a rate limit, or a server error prevents a real check from completing, the tool call still succeeds (it never throws or crashes the connection). It retries once after a short delay, and if that also fails, it returns a result with `checked: false`, `disposable: null`, and `action: "allow"`, along with a `note` explaining that the check could not be completed. An agent using this tool should treat that outcome as inconclusive, not as a signal that the address is safe.
 
 If no API key is configured, the server still starts normally and responds to the Model Context Protocol (MCP) handshake; each tool call then returns an error result pointing to https://isitdisposable.com to get a free key.
-
-## Publishing (manual)
-
-```
-cd ~/Code/active/isid-mcp
-npm install
-npm run build
-npm test
-npm login
-npm publish
-```
-
-`server.json` is currently written against the 2025-12-11 registry schema. The registry schema can drift again, so before a future registry submission, validate `server.json` against the exact schema URL named in its own `$schema` field, or upgrade `mcp-publisher` to the latest release and run its `validate` command (older releases, including the one this file was first written with, lack that command and generate an outdated template).
