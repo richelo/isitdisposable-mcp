@@ -3,3 +3,6 @@ dist/
 coverage/
 *.log
 .DS_Store
+
+# mcp-publisher login tokens; never commit these
+.mcpregistry_*

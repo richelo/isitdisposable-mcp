@@ -59,4 +59,4 @@ npm login
 npm publish
 ```
 
-Before the future registry submission, regenerate or validate `server.json` with the official `mcp-publisher` tool so it matches whichever schema version is current at that time.
+`server.json` is currently written against the 2025-12-11 registry schema. The registry schema can drift again, so before a future registry submission, validate `server.json` against the exact schema URL named in its own `$schema` field, or upgrade `mcp-publisher` to the latest release and run its `validate` command (older releases, including the one this file was first written with, lack that command and generate an outdated template).
